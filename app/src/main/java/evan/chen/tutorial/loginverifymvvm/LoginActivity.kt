@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import com.google.android.material.snackbar.Snackbar
 import evan.chen.tutorial.loginverifymvvm.databinding.ActivityLoginBinding
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -18,20 +19,20 @@ class LoginActivity : AppCompatActivity() {
         viewModel = LoginViewModel()
 
         val dataBinding = DataBindingUtil.setContentView<ActivityLoginBinding>(this, R.layout.activity_login)
-        dataBinding.productViewModel = viewModel
+        dataBinding.viewmodel = viewModel
 
-        //加這一段就可以讓model有變就更新回UI
         dataBinding.lifecycleOwner = this
 
-        loginButton.setOnClickListener {
-            val loginId = loginId.text.toString()
-            val password = password.text.toString()
+        setupSnackbar()
 
-//            viewModel.login(loginId, password).observe(this,
-//
-//                Observer<Boolean> {
-//                    println("observe_change:$it")
-//                })
-        }
+    }
+
+    private fun setupSnackbar() {
+        viewModel.snackbarText.observe(this, Observer { event ->
+            event.getContentIfNotHandled()?.let {
+                val snackbarText = it
+                Snackbar.make(layoutView, snackbarText, Snackbar.LENGTH_LONG).show()
+            }
+        })
     }
 }
