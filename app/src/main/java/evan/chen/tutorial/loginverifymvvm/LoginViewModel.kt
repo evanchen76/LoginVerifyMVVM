@@ -12,6 +12,7 @@ class LoginViewModel : ViewModel() {
     var loginIdError: MutableLiveData<String> = MutableLiveData()
     var passwordError: MutableLiveData<String> = MutableLiveData()
     var snackBarText: MutableLiveData<Event<String>> = MutableLiveData()
+    var isLoading: MutableLiveData<Boolean> = MutableLiveData(false)
 
     fun login() {
 
@@ -37,7 +38,21 @@ class LoginViewModel : ViewModel() {
 
         val loginRepository = LoginRepository()
 
-        loginSuccess.value = loginRepository.login(currentLoginId, currentPassword)
+        isLoading.value = true
+
+        loginRepository.login(
+            currentLoginId,
+            currentPassword,
+            object : LoginRepository.LoginCallback {
+                override fun loginResult(isLoginSuccess: Boolean) {
+                    loginSuccess.value = isLoginSuccess
+                    isLoading.value = false
+
+                    snackBarText.value = Event("登入成功")
+                }
+
+            })
+
     }
 
 }
