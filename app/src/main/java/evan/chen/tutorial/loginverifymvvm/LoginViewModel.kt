@@ -52,7 +52,6 @@ class LoginViewModel : ViewModel() {
                 }
 
             })
-
     }
 
 }
