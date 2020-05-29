@@ -24,11 +24,11 @@ class LoginActivity : AppCompatActivity() {
 
         dataBinding.lifecycleOwner = this
 
-        setupSnackbar()
+        setupSnackBar()
 
     }
 
-    private fun setupSnackbar() {
+    private fun setupSnackBar() {
         viewModel.snackBarText.observe(this, Observer { event ->
             event.getContentIfNotHandled()?.let {
                 val snackBarText = it

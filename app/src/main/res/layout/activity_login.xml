@@ -10,6 +10,7 @@
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutView"
+        android:padding="16dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".LoginActivity">
@@ -35,6 +36,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/passwordTitle"
             android:layout_width="match_parent"
+            android:layout_marginTop="16dp"
             android:layout_height="wrap_content"
             app:error="@{viewModel.passwordError}"
             app:errorEnabled="true"
