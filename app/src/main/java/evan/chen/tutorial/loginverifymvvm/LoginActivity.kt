@@ -18,8 +18,9 @@ class LoginActivity : AppCompatActivity() {
 
         viewModel = LoginViewModel()
 
-        val dataBinding = DataBindingUtil.setContentView<ActivityLoginBinding>(this, R.layout.activity_login)
-        dataBinding.viewmodel = viewModel
+        val dataBinding =
+            DataBindingUtil.setContentView<ActivityLoginBinding>(this, R.layout.activity_login)
+        dataBinding.viewModel = viewModel
 
         dataBinding.lifecycleOwner = this
 
@@ -28,10 +29,10 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun setupSnackbar() {
-        viewModel.snackbarText.observe(this, Observer { event ->
+        viewModel.snackBarText.observe(this, Observer { event ->
             event.getContentIfNotHandled()?.let {
-                val snackbarText = it
-                Snackbar.make(layoutView, snackbarText, Snackbar.LENGTH_LONG).show()
+                val snackBarText = it
+                Snackbar.make(layoutView, snackBarText, Snackbar.LENGTH_LONG).show()
             }
         })
     }

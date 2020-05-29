@@ -2,52 +2,59 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
     <data>
         <variable
-            name="viewmodel"
+            name="viewModel"
             type="evan.chen.tutorial.loginverifymvvm.LoginViewModel" />
     </data>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
+        android:id="@+id/layoutView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/layoutView"
+        android:orientation="vertical"
+        android:padding="16dp"
         tools:context=".LoginActivity">
-
-        <EditText
-            android:id="@+id/loginId"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/loginTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/password"
-            android:text="@={viewmodel.loginId}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_marginTop="16dp"
+            app:error="@{viewModel.loginIdError}"
+            app:errorEnabled="true">
 
-        <EditText
-            android:id="@+id/password"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/loginId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="帳號"
+                android:text="@={viewModel.loginId}" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/passwordTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@={viewmodel.loginId}"
-            app:layout_constraintBottom_toTopOf="@+id/loginButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/loginId" />
+            android:layout_marginTop="16dp"
+            app:error="@{viewModel.passwordError}"
+            app:errorEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="密碼"
+                android:text="@={viewModel.password}" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/loginButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="登入"
-            android:onClick="@{() -> viewmodel.login()}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/password" />
+            android:layout_marginTop="16dp"
+            android:onClick="@{() -> viewModel.login()}"
+            android:text="登入" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </layout>

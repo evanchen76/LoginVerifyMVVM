@@ -1,7 +1,5 @@
 package evan.chen.tutorial.loginverifymvvm
 
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
@@ -11,27 +9,35 @@ class LoginViewModel : ViewModel() {
     var password: MutableLiveData<String> = MutableLiveData()
     var loginSuccess: MutableLiveData<Boolean> = MutableLiveData()
 
-    private val _snackbarText = MutableLiveData<Event<String>>()
-    val snackbarText: LiveData<Event<String>> = _snackbarText
+    var loginIdError: MutableLiveData<String> = MutableLiveData()
+    var passwordError: MutableLiveData<String> = MutableLiveData()
+    var snackBarText: MutableLiveData<Event<String>> = MutableLiveData()
 
     fun login() {
+
+        loginIdError.value = ""
+        passwordError.value = ""
 
         val currentLoginId = loginId.value
         val currentPassword = password.value
 
         if (currentLoginId == null || currentPassword == null) {
-            _snackbarText.value = Event("帳號不能是空白")
+            if (currentLoginId == null) {
+                snackBarText.value = Event("帳號不能是空白")
+                loginIdError.value = "帳號不能是空白"
+            }
+
+            if (currentPassword == null) {
+                snackBarText.value = Event("密碼不能是空白")
+                passwordError.value = "密碼不能是空白"
+            }
+
             return
         }
 
-
-        val user = User()
-        user.userId = currentLoginId
-        user.password = currentPassword
-
         val loginRepository = LoginRepository()
 
-        loginSuccess.value = loginRepository.login(user)
+        loginSuccess.value = loginRepository.login(currentLoginId, currentPassword)
     }
 
 }
